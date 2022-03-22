@@ -1,3 +1,12 @@
+# This is a single line comment
+
+/*
+This is a comment
+that is spanning
+multiple lines
+*/
+
+/*
 terraform {
   required_providers {
     ciscoasa = {
@@ -5,16 +14,16 @@ terraform {
     }
   }
 }
-/* 
-works with ASA 9-14 and above
 */
+/*
 provider "ciscoasa" {
   api_url       = "https://10.156.32.198"
   username      = "admin"
   password      = # Provided by the instructor
   ssl_no_verify = true
 }
-
+*/
+/*
 resource "ciscoasa_interface_physical" "static" {
   name           = "inside"
   hardware_id    = "GigabitEthernet0/0"
@@ -28,7 +37,8 @@ resource "ciscoasa_interface_physical" "static" {
   security_level = 0
   shutdown = false
 }
-
+/*
+/*
 data "ciscoasa_interface_physical" "g0" {
   hardware_id = "GigabitEthernet0/0"
   depends_on = [ciscoasa_interface_physical.static]
@@ -37,7 +47,8 @@ data "ciscoasa_interface_physical" "g0" {
 output "g0" {
   value = data.ciscoasa_interface_physical.g0.name
 }
-
+*/
+/*
 resource "ciscoasa_dhcp_server" "dhcp_test" {
   interface             = data.ciscoasa_interface_physical.g0.name
   enabled               = true
@@ -47,4 +58,4 @@ resource "ciscoasa_dhcp_server" "dhcp_test" {
   // auto_config_enabled   = false
   // vpn_override          = false
 }
-
+*/
