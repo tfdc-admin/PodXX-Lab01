@@ -6,7 +6,7 @@ that is spanning
 multiple lines
 */
 
-/*
+
 terraform {
   required_providers {
     ciscoasa = {
@@ -14,15 +14,15 @@ terraform {
     }
   }
 }
-*/
-/*
+
+
 provider "ciscoasa" {
-  api_url       = "https://10.156.32.198"
-  username      = "admin"
-  password      = # Provided by the instructor
+  api_url       = var.url
+  username      = var.username
+  password      = var.password
   ssl_no_verify = true
 }
-*/
+
 /*
 resource "ciscoasa_interface_physical" "static" {
   name           = "inside"
@@ -37,25 +37,28 @@ resource "ciscoasa_interface_physical" "static" {
   security_level = 0
   shutdown = false
 }
-/*
+*/
 /*
 data "ciscoasa_interface_physical" "g0" {
   hardware_id = "GigabitEthernet0/0"
-  depends_on = [ciscoasa_interface_physical.static]
 } 
 
-output "g0" {
-  value = data.ciscoasa_interface_physical.g0.name
-}
-*/
-/*
 resource "ciscoasa_dhcp_server" "dhcp_test" {
   interface             = data.ciscoasa_interface_physical.g0.name
   enabled               = true
   pool_start_ip         = "172.16.0.2"
   pool_end_ip           = "172.16.0.200"
-  // dns_ip_primary        = "8.8.8.8"
-  // auto_config_enabled   = false
-  // vpn_override          = false
+}
+*/
+/*
+resource "ciscoasa_access_in_rules" "no_telnet" {
+  interface = data.ciscoasa_interface_physical.g0.name
+  rule {
+    source = "0.0.0.0/0"
+    source_service = "tcp/23"
+    destination = "0.0.0.0/0"
+    destination_service = "tcp/23"
+    permit = false
+  }
 }
 */
